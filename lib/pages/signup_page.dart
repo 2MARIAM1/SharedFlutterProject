@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/pages/choose_type.dart';
 import 'package:test_project/pages/loginpage.dart';
 
 import '../services/auth_service.dart';
@@ -166,7 +167,7 @@ void showErrorDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: const Text('Error'),
-        content: const Text('Invalid email or password.'),
+        content: const Text('Invalid email'),
         actions: <Widget>[
           TextButton(
             child: const Text('OK'),
@@ -222,7 +223,7 @@ Widget buildSignUpButton(BuildContext context) {
           onPressed: () async {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
+              MaterialPageRoute(builder: (context) => ChooseType()),
             );
           }),
     ),
