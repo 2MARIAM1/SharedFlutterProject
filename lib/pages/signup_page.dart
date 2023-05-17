@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:test_project/pages/choose_type.dart';
 import 'package:test_project/pages/loginpage.dart';
 
+import '../Components/SignUpComponents/choose_type.dart';
+import '../services/SignUpService.dart';
 import '../services/auth_service.dart';
 import 'home_page.dart';
 
@@ -17,69 +18,16 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-final AuthService authService = AuthService();
+final SignUpService signUpService = SignUpService();
 final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
-
-Widget buildEmail() {
-  return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
-        borderRadius: BorderRadius.circular(14),
-
-        //     boxShadow: const [
-        //     BoxShadow(color: Colors.black, blurRadius: 6, offset: Offset(0, 2))
-        // ]
-      ),
-      height: 60,
-      child: TextField(
-        controller: emailController, // added controller
-        keyboardType: TextInputType.emailAddress,
-        style: const TextStyle(color: Colors.black87),
-        decoration: const InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-              Icons.email_outlined,
-              color: Color(0xFFADA4A5),
-            ),
-            hintText: 'Email',
-            hintStyle: TextStyle(
-                color: Color(0xFFADA4A5),
-                fontFamily: 'Poppins',
-                fontSize: 13,
-                fontWeight: FontWeight.w500)),
-      ));
-}
-
-Widget buildPassword() {
-  return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      height: 60,
-      child: TextField(
-        controller: passwordController, // added controller
-        obscureText: true,
-        style: const TextStyle(color: Colors.black87),
-        decoration: const InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-              Icons.lock_open_rounded,
-              color: Color(0xFFADA4A5),
-            ),
-            hintText: 'Password',
-            hintStyle: TextStyle(
-                color: Color(0xFFADA4A5),
-                fontFamily: 'Poppins',
-                fontSize: 13,
-                fontWeight: FontWeight.w500)),
-      ));
-}
+final TextEditingController fullNameController = TextEditingController();
+final TextEditingController cinController = TextEditingController();
+final TextEditingController phoneNumberController = TextEditingController();
+final TextEditingController selectedTypeController = TextEditingController();
+//final TextEditingController selectedOptionController =
+//  TextEditingController(text: 'Cleaner');
+late TextEditingController dropdownController;
 
 Widget buildFullName() {
   return Container(
@@ -90,6 +38,7 @@ Widget buildFullName() {
       ),
       height: 60,
       child: TextFormField(
+        controller: fullNameController,
         style: const TextStyle(color: Colors.black87),
         decoration: const InputDecoration(
             border: InputBorder.none,
@@ -116,6 +65,7 @@ Widget buildCIN() {
       ),
       height: 60,
       child: TextFormField(
+        controller: cinController,
         style: const TextStyle(color: Colors.black87),
         decoration: const InputDecoration(
             border: InputBorder.none,
@@ -138,11 +88,12 @@ Widget buildPhoneNumber() {
   return Container(
       alignment: Alignment.centerLeft,
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
+        color: Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(14),
       ),
       height: 60,
       child: TextFormField(
+        controller: phoneNumberController, // added controller
         style: const TextStyle(color: Colors.black87),
         decoration: const InputDecoration(
             border: InputBorder.none,
@@ -159,26 +110,6 @@ Widget buildPhoneNumber() {
                 fontSize: 13,
                 fontWeight: FontWeight.w500)),
       ));
-}
-
-void showErrorDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text('Error'),
-        content: const Text('Invalid email'),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('OK'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }
 
 Widget buildSignUpButton(BuildContext context) {
@@ -221,10 +152,26 @@ Widget buildSignUpButton(BuildContext context) {
             ],
           ),
           onPressed: () async {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChooseType()),
-            );
+            final fullName = fullNameController.text;
+            final cin = cinController.text;
+            final phoneNumber = phoneNumberController.text;
+            final email = emailController.text;
+            final password = passwordController.text;
+            final registrationType = dropdownController.text;
+
+            final success = await signUpService.signUp(
+                fullName, cin, phoneNumber, email, password, registrationType);
+
+            if (success) {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            } else {
+              // ignore: use_build_context_synchronously
+              showErrorDialog(context, 'Failed to sign up. Please try again.');
+            }
           }),
     ),
   );
@@ -306,20 +253,23 @@ class _SignUpPageState extends State<SignUpPage> {
                                 fontFamily: 'Poppins'),
                           ),
                           SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.1),
+                              height:
+                                  MediaQuery.of(context).size.height * 0.05),
                           buildFullName(),
                           SizedBox(height: 10),
                           buildCIN(),
                           SizedBox(height: 10),
                           buildPhoneNumber(),
                           SizedBox(height: 10),
+                          BuildSelectedType(),
+                          SizedBox(height: 10),
                           buildEmail(),
                           const SizedBox(height: 10),
                           buildPassword(),
-                          const SizedBox(height: 60),
+                          const SizedBox(height: 45),
                           buildSignUpButton(context),
                           const SizedBox(height: 10),
-                          buildLogInBtn(context)
+                          buildLogInBtn(context),
                         ]),
                   ),
                 )

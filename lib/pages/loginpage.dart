@@ -78,7 +78,7 @@ Widget buildPassword() {
       ));
 }
 
-void showErrorDialog(BuildContext context) {
+void showErrorDialog(BuildContext context, String s) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -153,7 +153,7 @@ Widget buildLoginButton(BuildContext context) {
           } else {
             // Show an error message
             // ignore: use_build_context_synchronously
-            showErrorDialog(context);
+            showErrorDialog(context, 'Login failed');
           }
         },
       ),
