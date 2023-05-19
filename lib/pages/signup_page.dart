@@ -3,11 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/pages/choose_typepage.dart';
 import 'package:test_project/pages/loginpage.dart';
 
 import '../Components/SignUpComponents/choose_type.dart';
 import '../services/SignUpService.dart';
-import '../services/auth_service.dart';
+
 import 'home_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -18,197 +19,268 @@ class SignUpPage extends StatefulWidget {
   _SignUpPageState createState() => _SignUpPageState();
 }
 
-final SignUpService signUpService = SignUpService();
-final TextEditingController emailController = TextEditingController();
-final TextEditingController passwordController = TextEditingController();
-final TextEditingController fullNameController = TextEditingController();
-final TextEditingController cinController = TextEditingController();
-final TextEditingController phoneNumberController = TextEditingController();
-final TextEditingController selectedTypeController = TextEditingController();
-//final TextEditingController selectedOptionController =
-//  TextEditingController(text: 'Cleaner');
-late TextEditingController dropdownController;
-
-Widget buildFullName() {
-  return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      height: 60,
-      child: TextFormField(
-        controller: fullNameController,
-        style: const TextStyle(color: Colors.black87),
-        decoration: const InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-              Icons.person_2_outlined,
-              color: Color(0xFFADA4A5),
-            ),
-            hintText: 'Full Name',
-            hintStyle: TextStyle(
-                color: Color(0xFFADA4A5),
-                fontFamily: 'Poppins',
-                fontSize: 13,
-                fontWeight: FontWeight.w500)),
-      ));
-}
-
-Widget buildCIN() {
-  return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F8),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      height: 60,
-      child: TextFormField(
-        controller: cinController,
-        style: const TextStyle(color: Colors.black87),
-        decoration: const InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-              //  Icons.perm_identity_outlined,
-              Icons.credit_card,
-              color: Color(0xFFADA4A5),
-            ),
-            hintText: 'CIN',
-            hintStyle: TextStyle(
-                color: Color(0xFFADA4A5),
-                fontFamily: 'Poppins',
-                fontSize: 13,
-                fontWeight: FontWeight.w500)),
-      ));
-}
-
-Widget buildPhoneNumber() {
-  return Container(
-      alignment: Alignment.centerLeft,
-      decoration: BoxDecoration(
-        color: Color(0xFFF7F8F8),
-        borderRadius: BorderRadius.circular(14),
-      ),
-      height: 60,
-      child: TextFormField(
-        controller: phoneNumberController, // added controller
-        style: const TextStyle(color: Colors.black87),
-        decoration: const InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.only(top: 14),
-            prefixIcon: Icon(
-              //  Icons.perm_identity_outlined,
-              Icons.phone_outlined,
-              color: Color(0xFFADA4A5),
-            ),
-            hintText: 'PhoneNumber',
-            hintStyle: TextStyle(
-                color: Color(0xFFADA4A5),
-                fontFamily: 'Poppins',
-                fontSize: 13,
-                fontWeight: FontWeight.w500)),
-      ));
-}
-
-Widget buildSignUpButton(BuildContext context) {
-  return Material(
-    elevation: 5,
-    shadowColor: Colors.blue.withOpacity(0.45),
-    borderRadius: BorderRadius.circular(99),
-    child: Container(
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.height * 0.08,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(99),
-          gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)])),
-      child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            elevation: 5,
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-          ),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.login,
-                color: Colors.white,
-              ),
-              SizedBox(width: 10),
-              Text(
-                'Register',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          onPressed: () async {
-            final fullName = fullNameController.text;
-            final cin = cinController.text;
-            final phoneNumber = phoneNumberController.text;
-            final email = emailController.text;
-            final password = passwordController.text;
-            final registrationType = dropdownController.text;
-
-            final success = await signUpService.signUp(
-                fullName, cin, phoneNumber, email, password, registrationType);
-
-            if (success) {
-              // ignore: use_build_context_synchronously
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
-              );
-            } else {
-              // ignore: use_build_context_synchronously
-              showErrorDialog(context, 'Failed to sign up. Please try again.');
-            }
-          }),
-    ),
-  );
-}
-
-Widget buildLogInBtn(BuildContext context) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginPage()),
-      );
-    },
-    child: RichText(
-      text: const TextSpan(children: [
-        TextSpan(
-            text: "Already have an account ? ",
-            style: TextStyle(
-                color: Color(0xFFADA4A5),
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'Poppins')),
-        TextSpan(
-            text: "Log In",
-            style: TextStyle(
-                decoration: TextDecoration.underline,
-                decorationThickness: 2,
-                color: Color(0xFFADA4A5),
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Poppins'))
-      ]),
-    ),
-  );
-}
-
 class _SignUpPageState extends State<SignUpPage> {
+  final SignUpService signUpService = SignUpService();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController cinController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController dropdownController = TextEditingController();
+
+  Widget buildFullName() {
+    return Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7F8F8),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        height: 60,
+        child: TextFormField(
+          controller: fullNameController,
+          style: const TextStyle(color: Colors.black87),
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.person_2_outlined,
+                color: Color(0xFFADA4A5),
+              ),
+              hintText: 'Full Name',
+              hintStyle: TextStyle(
+                  color: Color(0xFFADA4A5),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500)),
+        ));
+  }
+
+  Widget buildCIN() {
+    return Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7F8F8),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        height: 60,
+        child: TextFormField(
+          controller: cinController,
+          style: const TextStyle(color: Colors.black87),
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                //  Icons.perm_identity_outlined,
+                Icons.credit_card,
+                color: Color(0xFFADA4A5),
+              ),
+              hintText: 'CIN',
+              hintStyle: TextStyle(
+                  color: Color(0xFFADA4A5),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500)),
+        ));
+  }
+
+  Widget buildPhoneNumber() {
+    return Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: Color(0xFFF7F8F8),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        height: 60,
+        child: TextFormField(
+          controller: phoneNumberController, // added controller
+          style: const TextStyle(color: Colors.black87),
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                //  Icons.perm_identity_outlined,
+                Icons.phone_outlined,
+                color: Color(0xFFADA4A5),
+              ),
+              hintText: 'PhoneNumber',
+              hintStyle: TextStyle(
+                  color: Color(0xFFADA4A5),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500)),
+        ));
+  }
+
+  Widget buildEmail() {
+    return Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7F8F8),
+          borderRadius: BorderRadius.circular(14),
+
+          //     boxShadow: const [
+          //     BoxShadow(color: Colors.black, blurRadius: 6, offset: Offset(0, 2))
+          // ]
+        ),
+        height: 60,
+        child: TextField(
+          controller: emailController, // added controller
+          keyboardType: TextInputType.emailAddress,
+          style: const TextStyle(color: Colors.black87),
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.email_outlined,
+                color: Color(0xFFADA4A5),
+              ),
+              hintText: 'Email',
+              hintStyle: TextStyle(
+                  color: Color(0xFFADA4A5),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500)),
+        ));
+  }
+
+  Widget buildPassword() {
+    return Container(
+        alignment: Alignment.centerLeft,
+        decoration: BoxDecoration(
+          color: const Color(0xFFF7F8F8),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        height: 60,
+        child: TextField(
+          controller: passwordController, // added controller
+          obscureText: true,
+          style: const TextStyle(color: Colors.black87),
+          decoration: const InputDecoration(
+              border: InputBorder.none,
+              contentPadding: EdgeInsets.only(top: 14),
+              prefixIcon: Icon(
+                Icons.lock_open_rounded,
+                color: Color(0xFFADA4A5),
+              ),
+              hintText: 'Password',
+              hintStyle: TextStyle(
+                  color: Color(0xFFADA4A5),
+                  fontFamily: 'Poppins',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500)),
+        ));
+  }
+
+  Widget buildSignUpButton(BuildContext context) {
+    return Material(
+      elevation: 5,
+      shadowColor: Colors.blue.withOpacity(0.45),
+      borderRadius: BorderRadius.circular(99),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: MediaQuery.of(context).size.height * 0.08,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(99),
+            gradient: const LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)])),
+        child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 5,
+              backgroundColor: Colors.transparent,
+              shadowColor: Colors.transparent,
+            ),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.login,
+                  color: Colors.white,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  'Register',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () async {
+              final fullName = fullNameController.text;
+              final cin = cinController.text;
+              final phoneNumber = phoneNumberController.text;
+              final email = emailController.text;
+              final password = passwordController.text;
+              final registrationType = dropdownController.text;
+
+              final success = await signUpService.signUp(fullName, cin,
+                  phoneNumber, email, password, registrationType);
+
+              if (success) {
+                // ignore: use_build_context_synchronously
+                if (registrationType == 'Cleaner') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChooseType()),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const HomePage()),
+                  );
+                }
+              } else {
+                // ignore: use_build_context_synchronously
+                showErrorDialog(
+                    context, 'Failed to sign up. Please try again.');
+              }
+            }),
+      ),
+    );
+  }
+
+  Widget buildLogInBtn(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
+      },
+      child: RichText(
+        text: const TextSpan(children: [
+          TextSpan(
+              text: "Already have an account ? ",
+              style: TextStyle(
+                  color: Color(0xFFADA4A5),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: 'Poppins')),
+          TextSpan(
+              text: "Log In",
+              style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  decorationThickness: 2,
+                  color: Color(0xFFADA4A5),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins'))
+        ]),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    dropdownController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -261,7 +333,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(height: 10),
                           buildPhoneNumber(),
                           SizedBox(height: 10),
-                          BuildSelectedType(),
+                          BuildSelectedType(
+                              dropdownController: dropdownController),
                           SizedBox(height: 10),
                           buildEmail(),
                           const SizedBox(height: 10),

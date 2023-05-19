@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/main.dart';
 
 import '../services/auth_service.dart';
 import 'home_page.dart';
@@ -141,19 +142,27 @@ Widget buildLoginButton(BuildContext context) {
           final email = emailController.text;
           final password = passwordController.text;
 
-          final success = await authService.authenticate(email, password);
+          final registrationType =
+              await authService.authenticate(email, password);
 
-          if (success) {
-            // Navigate to the home page
-            // ignore: use_build_context_synchronously
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+          if (registrationType != null) {
+            if (registrationType == 'Cleaner') {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MyApp()),
+              );
+            } else {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const HomePage()),
+              );
+            }
           } else {
-            // Show an error message
+            // Show error message for failed authentication
             // ignore: use_build_context_synchronously
-            showErrorDialog(context, 'Login failed');
+            showErrorDialog(context, 'Invalid email or password.');
           }
         },
       ),
@@ -239,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(vertical: 40),
+                            margin: const EdgeInsets.symmetric(vertical: 40),
                             child: SvgPicture.asset(
                               'assets/images/LoginImage.svg',
                             ),

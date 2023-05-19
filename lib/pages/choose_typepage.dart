@@ -1,6 +1,9 @@
+
 import 'package:flutter/material.dart';
 
 class ChooseType extends StatefulWidget {
+  const ChooseType({super.key});
+
   @override
   _ChooseTypeState createState() => _ChooseTypeState();
 }
@@ -28,7 +31,7 @@ class _ChooseTypeState extends State<ChooseType> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PageView Example'),
+        title: const Text('PageView Example'),
       ),
       body: Column(
         children: [
@@ -43,7 +46,7 @@ class _ChooseTypeState extends State<ChooseType> {
               children: [
                 Container(
                   color: Colors.red,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Page 1',
                       style: TextStyle(fontSize: 28, color: Colors.white),
@@ -52,7 +55,7 @@ class _ChooseTypeState extends State<ChooseType> {
                 ),
                 Container(
                   color: Colors.blue,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Page 2',
                       style: TextStyle(fontSize: 28, color: Colors.white),
@@ -61,7 +64,7 @@ class _ChooseTypeState extends State<ChooseType> {
                 ),
                 Container(
                   color: Colors.green,
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       'Page 3',
                       style: TextStyle(fontSize: 28, color: Colors.white),
@@ -91,7 +94,7 @@ class _ChooseTypeState extends State<ChooseType> {
 
   Widget _buildPageIndicator(bool isCurrentPage) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 4),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
       height: isCurrentPage ? 8 : 6,
       width: isCurrentPage ? 8 : 6,
       decoration: BoxDecoration(

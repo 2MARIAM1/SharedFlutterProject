@@ -1,4 +1,57 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class BuildSelectedType extends StatelessWidget {
+  final TextEditingController dropdownController;
+
+  const BuildSelectedType({
+    Key? key,
+    required this.dropdownController,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> items = ['Cleaner', 'Customer'];
+    final String initialValue =
+        items.first; // Set the initial value to the first item
+
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F8F8),
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: DropdownButtonFormField<String>(
+        value: initialValue, // Set the initial value
+        itemHeight: 60,
+        dropdownColor: const Color(0xFFF7F8F8),
+        elevation: 5,
+        icon: const Icon(Icons.arrow_drop_down, color: Color(0xFFADA4A5)),
+        iconSize: 36,
+        isExpanded: true,
+        style: const TextStyle(
+          fontSize: 13,
+          color: Color(0xFFADA4A5),
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.w600,
+        ),
+        alignment: Alignment.center,
+        padding: const EdgeInsets.only(left: 15),
+        items: items.map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          if (newValue != null) {
+            dropdownController.text = newValue;
+          }
+        },
+      ),
+    );
+  }
+}
+
+/*import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../pages/signup_page.dart';
@@ -68,7 +121,7 @@ class _BuildSelectedTypeState extends State<BuildSelectedType> {
   }
 }
 
-
+*/
 /*Widget buildSelectedType() {
   String? selectedOption;
   final List<String> options = ['Option 1', 'Option 2', 'Option 3'];
