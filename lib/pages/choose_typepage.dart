@@ -1,4 +1,4 @@
-
+/*
 import 'package:flutter/material.dart';
 
 class ChooseType extends StatefulWidget {
@@ -104,3 +104,4 @@ class _ChooseTypeState extends State<ChooseType> {
     );
   }
 }
+*/

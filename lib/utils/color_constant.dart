@@ -7,7 +7,7 @@ class ColorConstant {
   static Color blueGray200 = fromHex('#bbc3ce');
 
   static Color blue2007f = fromHex('#7f9dceff');
-
+  static Color lightblue20 = fromHex('#9DCEFF');
   static Color gray500 = fromHex('#aca3a5');
 
   static Color blueGray50 = fromHex('#f0eff8');
@@ -56,4 +56,19 @@ class ColorConstant {
     buffer.write(hexString.replaceFirst('#', ''));
     return Color(int.parse(buffer.toString(), radix: 16));
   }
+
+  static LinearGradient linearGradient(Color startColor, Color endColor) {
+    return LinearGradient(
+      colors: [startColor, endColor],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    );
+  }
+
+  static LinearGradient lightbluegradientMENU = linearGradient(ColorConstant.lightblue20.withOpacity(0), ColorConstant.lightblue20);
+
+
+
+
+
 }

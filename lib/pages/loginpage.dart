@@ -150,13 +150,13 @@ Widget buildLoginButton(BuildContext context) {
               // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
             } else {
               // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const HomePage()),
+                MaterialPageRoute(builder: (context) => HomePage()),
               );
             }
           } else {

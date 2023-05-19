@@ -226,12 +226,12 @@ class _SignUpPageState extends State<SignUpPage> {
                 if (registrationType == 'Cleaner') {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ChooseType()),
+                    MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 } else {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => HomePage()),
                   );
                 }
               } else {

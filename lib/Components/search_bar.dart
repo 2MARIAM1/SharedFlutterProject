@@ -1,31 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:test_project/utils/color_constant.dart';
+
+import '../utils/image_constant.dart';
 
 final TextEditingController _searchController = TextEditingController();
 
-Widget buildSearchBar(BuildContext context) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: TextField(
-        controller: _searchController,
-        decoration: InputDecoration(
-          hintText: 'Search...',
-          suffixIcon: IconButton(
-            icon: const Icon(Icons.clear),
-            onPressed: () => _searchController.clear(),
-          ),
-          prefixIcon: IconButton(
-            icon: const Icon(Icons.search),
+Widget buildSearchBar() {
+  return
+     Container(
+      margin: EdgeInsets.only(top:5),
+      height: 38,
+      width: 335,
+      decoration: BoxDecoration(
+        color: ColorConstant.gray50,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        children: [
+          IconButton(
+            icon: SvgPicture.asset(ImageConstant.imgSearch) ,
             onPressed: () {
               // Perform the search here
             },
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
+          Expanded(
+            child: TextField(
+
+              controller: _searchController,
+              decoration: InputDecoration(
+
+                hintText: 'Search...',
+                hintStyle: TextStyle(
+                    color: ColorConstant.black9003f,
+                    fontFamily: 'Poppins',
+                    fontSize: 14),
+                border: InputBorder.none,
+              ),
+            ),
           ),
-        ),
+        ],
       ),
-    ),
   );
 }

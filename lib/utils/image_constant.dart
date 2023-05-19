@@ -24,13 +24,13 @@ class ImageConstant {
 
   static String imgSettings = 'assets/images/img_settings.svg';
 
-  static String imgUserGray90001 = 'assets/images/img_user_gray_900_01.svg';
+  static String imgUserBlack = 'assets/images/img_user_gray_900_01.svg';
 
   static String imgIconlylightarrow = 'assets/images/img_iconlylightarrow.png';
 
   static String imgPlus = 'assets/images/img_plus.svg';
 
-  static String imgNotif = 'assets/images/img_volume.svg';
+  static String imgNotif = 'assets/images/Notification.svg';
 
   static String imgSearch = 'assets/images/img_search.svg';
 
