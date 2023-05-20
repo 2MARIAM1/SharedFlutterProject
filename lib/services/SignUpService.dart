@@ -9,15 +9,18 @@ class SignUpService {
     String cin,
     String phoneNumber,
     String email,
-    String password,
+    String password, String region,
     String registrationType,
   ) async {
+
+
     final Map<String, dynamic> requestData = {
       'fullName': fullName,
       'cin': cin,
       'phoneNumber': phoneNumber,
       'email': email,
       'password': password,
+      'region': region,
       'registrationType': registrationType,
     };
 
@@ -30,6 +33,7 @@ class SignUpService {
     );
 
     return response.statusCode == 201;
+
   }
 }
 /*

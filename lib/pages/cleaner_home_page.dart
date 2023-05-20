@@ -1,3 +1,25 @@
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+class CleanerHomePage extends StatefulWidget {
+  const CleanerHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<CleanerHomePage> createState() => _CleanerHomePageState();
+}
+
+class _CleanerHomePageState extends State<CleanerHomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Text("CLEANER HOME PAGE"),
+    );
+  }
+}
+
+
+
 /*
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

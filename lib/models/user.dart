@@ -5,6 +5,7 @@ class User {
   String? phoneNumber;
   String? email;
   String? password;
+  String? region;
   String? registrationType;
 
   User({
@@ -14,6 +15,7 @@ class User {
     this.phoneNumber,
     this.email,
     this.password,
+    this.region,
     this.registrationType,
   });
 
@@ -25,6 +27,7 @@ class User {
       phoneNumber: json['phoneNumber'],
       email: json['email'],
       password: json['password'],
+      region: json['region'],
       registrationType: json['registrationType'],
     );
   }
@@ -36,6 +39,7 @@ class User {
         'phoneNumber': phoneNumber,
         'email': email,
         'password': password,
+        'region': region,
         'registrationType': registrationType,
       };
 }

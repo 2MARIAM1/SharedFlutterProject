@@ -21,11 +21,11 @@ class BuildSelectedType extends StatelessWidget {
       ),
       child: DropdownButtonFormField<String>(
         value: initialValue, // Set the initial value
-        itemHeight: 60,
+        itemHeight: 50,
         dropdownColor: const Color(0xFFF7F8F8),
-        elevation: 5,
-        icon: const Icon(Icons.arrow_drop_down, color: Color(0xFFADA4A5)),
-        iconSize: 36,
+
+        icon: const Icon(Icons.keyboard_arrow_down_rounded, color: Color(0xFFADA4A5)),
+        iconSize: 30,
         isExpanded: true,
         style: const TextStyle(
           fontSize: 13,
