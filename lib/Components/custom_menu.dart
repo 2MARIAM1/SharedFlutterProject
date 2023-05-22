@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_project/utils/color_constant.dart';
 import 'package:test_project/utils/image_constant.dart';
@@ -20,7 +18,7 @@ class CustomMenuBar extends StatelessWidget {
           IconButton(
             alignment: Alignment.bottomCenter,
             icon: SvgPicture.asset(ImageConstant.imgHome),
-          //  icon: Icon(Icons.home),
+            //  icon: Icon(Icons.home),
             onPressed: () {
               // Handle home button pressed
             },
@@ -34,23 +32,19 @@ class CustomMenuBar extends StatelessWidget {
             },
           ),
           Container(
-
             margin: const EdgeInsets.only(bottom: 10),
-          //  alignment: Alignment.topCenter,
+            //  alignment: Alignment.topCenter,
             width: 60,
             height: 60,
             decoration: const BoxDecoration(
-              gradient:  LinearGradient(
+              gradient: LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                   colors: [Color(0xFF92A3FD), Color(0xFF9DCEFF)]),
-
               shape: BoxShape.circle,
-
             ),
-            child:  Center(
+            child: Center(
               child: IconButton(
-
                 icon: SvgPicture.asset(ImageConstant.imgPlus),
                 // icon: Icon(Icons.message_outlined),
                 onPressed: () {
@@ -58,13 +52,11 @@ class CustomMenuBar extends StatelessWidget {
                 },
               ),
             ),
-
           ),
-
           IconButton(
             alignment: Alignment.bottomCenter,
-             icon: SvgPicture.asset(ImageConstant.imgMessage),
-           // icon: Icon(Icons.message_outlined),
+            icon: SvgPicture.asset(ImageConstant.imgMessage),
+            // icon: Icon(Icons.message_outlined),
             onPressed: () {
               // Handle search button pressed
             },

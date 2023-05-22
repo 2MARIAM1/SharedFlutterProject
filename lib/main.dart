@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_project/Components/service_selector.dart';
-import 'package:test_project/pages/get_started.dart';
-import 'package:test_project/pages/home_page.dart';
-import 'package:test_project/pages/loginpage.dart';
-import 'package:test_project/pages/signup_page.dart';
-import 'package:test_project/pages/testpage.dart';
+import 'package:test_project/pages/profi-page.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -15,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ServiceTypeSelector(),
+      home: ProfileScreen(),
     );
   }
 }
