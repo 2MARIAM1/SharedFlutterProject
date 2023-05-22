@@ -1,56 +1,152 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:test_project/Components/offer_posts.dart';
+
+import '../Components/custom_menu.dart';
+import '../Components/search_bar.dart';
+import '../utils/color_constant.dart';
+import '../utils/image_constant.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
   @override
-  // ignore: library_private_types_in_public_api
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: GestureDetector(
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                        Color.fromARGB(230, 118, 227, 158),
-                        Color.fromARGB(255, 176, 237, 198),
-                        Color.fromARGB(255, 232, 255, 240),
-                        Color.fromARGB(230, 255, 255, 255),
-                      ])),
-                  child: const SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 120),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            'This is the homepage ',
+      body: Stack(
+
+        children:[ Column(
+          children: [
+            Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 70, left: 45),
+                        child: Text("Hello,",
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 40,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ]),
+                              fontFamily: 'Poppins',
+                              fontSize: 16,
+                              color: ColorConstant.blueGray200),
+                      ),),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50, top: 5),
+                        child: Text("Sofia",
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              color: ColorConstant.black900,
+                            )),
+                      ),
+                    ],
                   ),
-                )
-              ],
+                  Padding(
+                    padding: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.height * 0.02,
+                        top: 75),
+                    child: Container(
+                      margin: const EdgeInsets.all(6),
+                      width: 28,
+                      height: 28,
+                      decoration: BoxDecoration(
+                        color: ColorConstant
+                            .gray200, // Replace with your desired background color
+                        borderRadius: BorderRadius.circular(
+                            10.0), // Adjust the radius as needed
+                      ),
+                      child:  SvgPicture.asset(ImageConstant.imgNotif),
+                   //   Icon(
+                    //    Icons
+                    //        .notifications_none_outlined, // Replace with your desired icon
+                    //    color: ColorConstant
+                    //        .black900, // Replace with your desired icon color
+                    //    size: 24.0, // Replace with your desired icon size
+                    //  ),
+                    ),
+                  )
+                ]),
+            const SizedBox(
+              height: 20,
             ),
-          )),
+            buildSearchBar(),
+
+            const SizedBox(
+              height: 20,
+            ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text('Popular \nin your region',style: TextStyle(
+
+                fontFamily: 'Poppins',
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+                color: ColorConstant.black90001,
+              ),),
+            ),
+          ),
+
+          offerPostsList(context),
+          ],
+        ),
+          Align(
+            alignment: Alignment.bottomCenter,
+              child: CustomMenuBar()),
+  ]
+
+    ),
+      // bottomNavigationBar: CustomMenuBar(),
     );
   }
 }
+
+/*
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        //TOP PART
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 25),
+            child: Container(
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                // color: ColorConstant.gray200,
+                borderRadius: BorderRadius.circular(5),
+              ),
+              child: SvgPicture.asset(
+                ImageConstant.imgNotif,
+                fit: BoxFit.fill,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+*/

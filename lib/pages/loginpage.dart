@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:test_project/main.dart';
+import 'package:test_project/pages/cleaner_home_page.dart';
 
 import '../services/auth_service.dart';
 import 'home_page.dart';
@@ -78,7 +80,7 @@ Widget buildPassword() {
       ));
 }
 
-void showErrorDialog(BuildContext context) {
+void showErrorDialog(BuildContext context, String s) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -141,19 +143,26 @@ Widget buildLoginButton(BuildContext context) {
           final email = emailController.text;
           final password = passwordController.text;
 
-          final success = await authService.authenticate(email, password);
+          final registrationType = await authService.authenticate(email, password);
 
-          if (success) {
-            // Navigate to the home page
-            // ignore: use_build_context_synchronously
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
-            );
+          if (registrationType != null) {
+            if (registrationType == 'Cleaner') {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CleanerHomePage()),
+              );
+            } else if (registrationType == 'Customer') {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            }
           } else {
-            // Show an error message
+            // Show error message for failed authentication
             // ignore: use_build_context_synchronously
-            showErrorDialog(context);
+            showErrorDialog(context, 'Invalid email or password.');
           }
         },
       ),
@@ -239,7 +248,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           Container(
                             alignment: Alignment.center,
-                            margin: EdgeInsets.symmetric(vertical: 40),
+                            margin: const EdgeInsets.symmetric(vertical: 40),
                             child: SvgPicture.asset(
                               'assets/images/LoginImage.svg',
                             ),
@@ -260,3 +269,31 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+/*onPressed: () async {
+          final email = emailController.text;
+          final password = passwordController.text;
+
+          final registrationType =
+              await authService.authenticate(email, password);
+
+          if (registrationType != null) {
+            if (registrationType == 'Cleaner') {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CleanerHomePage()),
+              );
+            } else if (registrationType == 'Customer') {
+              // ignore: use_build_context_synchronously
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            }
+          } else {
+            // Show error message for failed authentication
+            // ignore: use_build_context_synchronously
+            showErrorDialog(context, 'Invalid email or password.');
+          }
+        },*/
