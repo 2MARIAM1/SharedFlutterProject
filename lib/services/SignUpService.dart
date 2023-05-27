@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class SignUpService {
-  final String baseUrl = 'http://localhost:8083/user';
+  final String baseUrl = 'http://192.168.11.103:8083/user';
 
   Future<bool> signUp(
     String fullName,

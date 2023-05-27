@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_project/Components/service_selector.dart';
-import 'package:test_project/pages/get_started.dart';
-import 'package:test_project/pages/home_page.dart';
-import 'package:test_project/pages/loginpage.dart';
-import 'package:test_project/pages/signup_page.dart';
-import 'package:test_project/pages/testpage.dart';
+import 'package:test_project/Components/SignUpComponents/service_selector.dart';
+import 'package:test_project/pages/add_infos_cleaner.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,9 +9,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ServiceTypeSelector(),
+      home: AddInfosCleanerPage(),
     );
   }
 }
