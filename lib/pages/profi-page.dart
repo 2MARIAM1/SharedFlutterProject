@@ -26,7 +26,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Profile'),
+          title: Text(
+            'Profile',
+            style: TextStyle(color: Colors.white),
+          ),
           centerTitle: true,
         ),
         body: Stack(children: [
@@ -91,41 +94,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 15,
                   ),
-                  SizedBox(height: 20),
-                  Align(
-                    alignment: Alignment.topCenter,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Colonne 1',
-                          style: TextStyle(fontSize: 18),
+                          'phone numbeer',
+                          style: TextStyle(fontSize: 14),
                         ),
+                        Text('+212 670-679-823')
                       ],
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Colonne 2',
-                        style: TextStyle(fontSize: 18),
-                      ),
-                    ],
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'working days',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.calendar_month_outlined))
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'your location',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(Icons.location_on_outlined))
+                      ],
+                    ),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
                       // Action à effectuer lorsque le nouveau bouton est pressé
                     },
-                    child: Text('Nouveau bouton'),
+                    child: Text('Done'),
                   ),
                   SizedBox(height: 10),
-                  Text(
-                    'Nouveau texte',
-                    style: TextStyle(fontSize: 18),
-                  ),
                   ElevatedButton(
                     onPressed: _logout,
                     child: Text('Déconnexion'),
@@ -136,5 +161,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Align(alignment: Alignment.bottomCenter, child: CustomMenuBar()),
         ]));
+        
   }
 }
