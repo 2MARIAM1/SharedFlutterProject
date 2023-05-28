@@ -3,6 +3,7 @@ import 'package:test_project/utils/color_constant.dart';
 
 import '../Components/custom_menu.dart';
 import '../utils/image_constant.dart';
+import 'edit_profi.dart';
 import 'loginpage.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -22,17 +23,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
     // Action à effectuer lorsque le bouton de déconnexion est pressé
   }
 
+  void _editProfile() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditProfilePage()),
+    );
+    // Action à effectuer lorsque le bouton "Edit" est pressé
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Profile',
-            style: TextStyle(color: Colors.white),
-          ),
-          centerTitle: true,
+      appBar: AppBar(
+        title: Text(
+          'Profile',
+          style: TextStyle(color: Colors.white),
         ),
-        body: Stack(children: [
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
           Column(
             children: [
               Column(
@@ -100,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'phone numbeer',
+                          'phone number',
                           style: TextStyle(fontSize: 14),
                         ),
                         Text('+212 670-679-823')
@@ -120,8 +130,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: TextStyle(fontSize: 14),
                         ),
                         IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.calendar_month_outlined))
+                          onPressed: () {},
+                          icon: Icon(Icons.calendar_month_outlined),
+                        )
                       ],
                     ),
                   ),
@@ -138,17 +149,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: TextStyle(fontSize: 14),
                         ),
                         IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.location_on_outlined))
+                          onPressed: () {},
+                          icon: Icon(Icons.location_on_outlined),
+                        )
                       ],
                     ),
                   ),
                   SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      // Action à effectuer lorsque le nouveau bouton est pressé
-                    },
-                    child: Text('Done'),
+                    onPressed: _editProfile,
+                    child: Text('Edit'),
                   ),
                   SizedBox(height: 10),
                   ElevatedButton(
@@ -160,7 +170,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           Align(alignment: Alignment.bottomCenter, child: CustomMenuBar()),
-        ]));
-        
+        ],
+      ),
+    );
   }
 }

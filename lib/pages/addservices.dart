@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../Components/custom_menu.dart';
+import '../utils/color_constant.dart';
 
 class AddServiceForm extends StatefulWidget {
   @override
@@ -70,6 +71,8 @@ class _AddServiceFormState extends State<AddServiceForm> {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins',
+                      color: ColorConstant.indigoA100,
                     ),
                   ),
                 ),
@@ -178,7 +181,10 @@ class _AddServiceFormState extends State<AddServiceForm> {
               ],
             ),
           ),
-          Align(alignment: Alignment.bottomCenter, child: CustomMenuBar()),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: CustomMenuBar(),
+          ),
         ],
       ),
     );

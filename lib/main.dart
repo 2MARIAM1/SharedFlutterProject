@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:test_project/pages/addservices.dart';
+import 'package:test_project/pages/bookingpage.dart';
 import 'package:test_project/pages/chat.dart';
 import 'package:test_project/pages/loginpage.dart';
 import 'package:test_project/pages/profi-page.dart';
@@ -14,7 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: BookingPage(
+        booked: true,
+      ),
     );
   }
 }

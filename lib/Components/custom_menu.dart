@@ -5,6 +5,9 @@ import 'package:test_project/utils/color_constant.dart';
 import 'package:test_project/utils/image_constant.dart';
 
 import '../pages/addservices.dart';
+import '../pages/bookingpage.dart';
+import '../pages/home_page.dart';
+import '../pages/profi-page.dart';
 
 class CustomMenuBar extends StatelessWidget {
   @override
@@ -20,17 +23,26 @@ class CustomMenuBar extends StatelessWidget {
           IconButton(
             alignment: Alignment.bottomCenter,
             icon: SvgPicture.asset(ImageConstant.imgHome),
-            //  icon: Icon(Icons.home),
+            // icon: Icon(Icons.home),
             onPressed: () {
-              // Handle home button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
             },
           ),
           IconButton(
             alignment: Alignment.bottomCenter,
             icon: SvgPicture.asset(ImageConstant.imgGroupmybooking),
-            // icon: Icon(Icons.message_outlined),
             onPressed: () {
-              // Handle search button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookingPage(
+                      booked:
+                          true), // Passer la valeur de booked selon votre logique
+                ),
+              );
             },
           ),
           Container(
@@ -70,7 +82,10 @@ class CustomMenuBar extends StatelessWidget {
             icon: SvgPicture.asset(ImageConstant.imgUserBlack),
             // icon: Icon(Icons.message_outlined),
             onPressed: () {
-              // Handle search button pressed
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
+              );
             },
           ),
         ],
