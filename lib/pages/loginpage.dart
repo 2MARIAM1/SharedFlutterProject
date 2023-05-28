@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_project/main.dart';
+import 'package:test_project/pages/addservices.dart';
 import 'package:test_project/pages/cleaner_home_page.dart';
 
 import '../services/auth_service.dart';
@@ -143,14 +144,15 @@ Widget buildLoginButton(BuildContext context) {
           final email = emailController.text;
           final password = passwordController.text;
 
-          final registrationType = await authService.authenticate(email, password);
+          final registrationType =
+              await authService.authenticate(email, password);
 
           if (registrationType != null) {
             if (registrationType == 'Cleaner') {
               // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const CleanerHomePage()),
+                MaterialPageRoute(builder: (context) => AddServiceForm()),
               );
             } else if (registrationType == 'Customer') {
               // ignore: use_build_context_synchronously

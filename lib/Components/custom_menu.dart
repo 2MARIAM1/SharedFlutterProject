@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:test_project/utils/color_constant.dart';
 import 'package:test_project/utils/image_constant.dart';
 
+import '../pages/addservices.dart';
+
 class CustomMenuBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,9 +48,11 @@ class CustomMenuBar extends StatelessWidget {
             child: Center(
               child: IconButton(
                 icon: SvgPicture.asset(ImageConstant.imgPlus),
-                // icon: Icon(Icons.message_outlined),
                 onPressed: () {
-                  // Handle search button pressed
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddServiceForm()),
+                  );
                 },
               ),
             ),
