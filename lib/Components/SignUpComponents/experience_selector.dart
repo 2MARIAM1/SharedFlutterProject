@@ -22,27 +22,38 @@ class BuildSelectedExperience extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(
+          color: ColorConstant.indigo100,
+          width: 2,
+        ),
         color: const Color(0xFFF7F8F8),
         borderRadius: BorderRadius.circular(40),
       ),
       child: DropdownButtonFormField<String>(
         value: initialValue, // Set the initial value
         itemHeight: 50,
-        dropdownColor: const Color(0xFFF7F8F8),
-
+        dropdownColor: ColorConstant.whiteA700,
+        borderRadius: BorderRadius.circular(40),
+        focusColor: Colors.transparent,
         icon: Icon(
           Icons.keyboard_arrow_down_rounded,
           color: ColorConstant.indigo100,
         ),
+
         isExpanded: true,
-        style: const TextStyle(
-          fontSize: 13,
-          color: Color(0xFFADA4A5),
-          fontFamily: 'Poppins',
-          fontWeight: FontWeight.w600,
-        ),
+        style: TextStyle(
+            fontFamily: 'Poppins',
+            fontSize: 14,
+            color: ColorConstant.indigoA100),
         alignment: Alignment.center,
-        padding: const EdgeInsets.only(left: 15),
+
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+
+          // Remove default border line
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+        ),
+
         items: items.map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,

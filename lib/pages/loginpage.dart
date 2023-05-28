@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:test_project/main.dart';
+import 'package:test_project/pages/add_infos_cleaner.dart';
 import 'package:test_project/pages/cleaner_home_page.dart';
 
+import '../models/user.dart';
 import '../services/auth_service.dart';
 import 'home_page.dart';
 import 'signup_page.dart';
@@ -139,32 +141,43 @@ Widget buildLoginButton(BuildContext context) {
             ),
           ],
         ),
-        onPressed: () async {
-          final email = emailController.text;
-          final password = passwordController.text;
+          onPressed: () async {
+            final email = emailController.text;
+            final password = passwordController.text;
 
-          final registrationType = await authService.authenticate(email, password);
+            final User? user = await authService.authenticate(email, password);
 
-          if (registrationType != null) {
-            if (registrationType == 'Cleaner') {
-              // ignore: use_build_context_synchronously
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CleanerHomePage()),
-              );
-            } else if (registrationType == 'Customer') {
-              // ignore: use_build_context_synchronously
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+            if (user != null) {
+              if (user.registration_type == 'Cleaner') {
+                if(user.availability != null && user.description != null && user.equipment != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          CleanerHomePage(),
+                    ),
+                  );
+              }
+                else{
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddInfosCleanerPage(currentUser: user),
+                    ),
+                  );
+
+                }
+              } else if (user.registration_type == 'Customer') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              }
+            } else {
+              showErrorDialog(context, 'Invalid email or password.');
             }
-          } else {
-            // Show error message for failed authentication
-            // ignore: use_build_context_synchronously
-            showErrorDialog(context, 'Invalid email or password.');
           }
-        },
       ),
     ),
   );
@@ -274,17 +287,17 @@ class _LoginPageState extends State<LoginPage> {
           final email = emailController.text;
           final password = passwordController.text;
 
-          final registrationType =
+          final registration_type =
               await authService.authenticate(email, password);
 
-          if (registrationType != null) {
-            if (registrationType == 'Cleaner') {
+          if (registration_type != null) {
+            if (registration_type == 'Cleaner') {
               // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const CleanerHomePage()),
               );
-            } else if (registrationType == 'Customer') {
+            } else if (registration_type == 'Customer') {
               // ignore: use_build_context_synchronously
               Navigator.push(
                 context,

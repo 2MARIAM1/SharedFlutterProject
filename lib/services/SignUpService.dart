@@ -10,7 +10,7 @@ class SignUpService {
     String phoneNumber,
     String email,
     String password, String region,
-    String registrationType,
+    String registration_type,
   ) async {
 
 
@@ -21,7 +21,7 @@ class SignUpService {
       'email': email,
       'password': password,
       'region': region,
-      'registrationType': registrationType,
+      'registration_type': registration_type,
     };
 
     final String requestJson = jsonEncode(requestData);
@@ -42,7 +42,7 @@ class SignUpService {
   final String baseUrl = 'http://localhost:8083/user';
 
   Future<bool> signUp(String fullName, String cin, String phoneNumber,
-      String email, String password, String registrationType) async {
+      String email, String password, String registration_type) async {
     final response = await http.post(
       Uri.parse('$baseUrl/add'),
       headers: {'Content-Type': 'application/json'},
@@ -52,7 +52,7 @@ class SignUpService {
         'phoneNumber': phoneNumber,
         'email': email,
         'password': password,
-        "registrationType": registrationType,
+        "registration_type": registration_type,
       }),
     );
 

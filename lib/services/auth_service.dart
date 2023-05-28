@@ -8,7 +8,7 @@ import '../models/user.dart';
 class AuthService {
   final String _baseUrl = "http://192.168.11.103:8083/user";
 
-  Future<String?> authenticate(String email, String password) async {
+  Future<User?> authenticate(String email, String password) async {
     try {
       final response = await http.get(Uri.parse('$_baseUrl/all'));
 
@@ -21,9 +21,7 @@ class AuthService {
         );
 
         if (user != null) {
-          final String registrationType = user['registrationType'];
-
-          return registrationType;
+          return  User.fromJson(user);
         }
       }
     }on SocketException{
@@ -52,9 +50,9 @@ class AuthService {
       );
 
       if (user != null) {
-        final String registrationType = user['registrationType'];
+        final String registration_type = user['registration_type'];
 
-        return registrationType;
+        return registration_type;
       }
     }
 

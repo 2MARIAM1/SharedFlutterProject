@@ -16,7 +16,10 @@ class Days {
 }
 
 class DaySelector extends StatefulWidget {
-  const DaySelector({Key? key}) : super(key: key);
+  final TextEditingController workDaysController;
+
+  const DaySelector({Key? key, required this.workDaysController}) : super(key: key);
+
 
   @override
   State<DaySelector> createState() => _DaySelectorState();
@@ -39,22 +42,25 @@ class _DaySelectorState extends State<DaySelector> {
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
   @override
-  void initState() {
-    _selectedDays = _days.toList();
-    super.initState();
-  }
+   void initState() {
+     _selectedDays = _days.toList();
+     super.initState();
+   }
 
   @override
   Widget build(BuildContext context) {
     return MultiSelectDialogField(
+      dialogHeight: 300,
       checkColor: ColorConstant.indigoA100,
       items: _items,
+      itemsTextStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
       title: Text(
         "Select day",
         style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
       ),
       selectedColor: ColorConstant.indigoA100,
-      selectedItemsTextStyle: TextStyle(color: Colors.indigo[700]),
+      selectedItemsTextStyle: TextStyle(
+          color: ColorConstant.indigoA100, fontFamily: 'Poppins', fontSize: 14),
       backgroundColor: ColorConstant.gray50,
       decoration: BoxDecoration(
         color: ColorConstant.gray50,
@@ -72,12 +78,15 @@ class _DaySelectorState extends State<DaySelector> {
         "Select days",
         style: TextStyle(
           color: ColorConstant.indigoA100,
-          fontSize: 16,
+          fontSize: 14,
           fontFamily: 'Poppins',
         ),
       ),
       onConfirm: (results) {
         _selectedDays = results;
+        widget.workDaysController.text = _selectedDays
+            .map((days) => days.name)
+            .join(", ");
       },
     );
   }

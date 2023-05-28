@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test_project/Components/SignUpComponents/service_selector.dart';
 import 'package:test_project/pages/add_infos_cleaner.dart';
+import 'package:test_project/pages/loginpage.dart';
+import 'package:test_project/pages/signup_page.dart';
 
 void main() => runApp(const MyApp());
 
@@ -9,9 +11,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AddInfosCleanerPage(),
+      home: LoginPage(),
     );
   }
 }

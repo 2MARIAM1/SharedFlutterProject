@@ -27,7 +27,8 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController cinController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController dropdownController = TextEditingController();
-  final TextEditingController regionDropdownController = TextEditingController();
+  final TextEditingController regionDropdownController =
+      TextEditingController();
 
   Widget buildFullName() {
     return Container(
@@ -128,7 +129,9 @@ class _SignUpPageState extends State<SignUpPage> {
           controller: emailController, // added controller
           keyboardType: TextInputType.emailAddress,
           style: const TextStyle(color: Colors.black87),
+
           decoration: const InputDecoration(
+
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14),
               prefixIcon: Icon(
@@ -246,6 +249,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Material(
       elevation: 5,
       shadowColor: Colors.blue.withOpacity(0.45),
+
       borderRadius: BorderRadius.circular(99),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.7,
@@ -259,14 +263,13 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         child: ElevatedButton(
+
           style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.zero,
+            backgroundColor: Colors.transparent,
+        //    padding: EdgeInsets.zero,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(99),
             ),
-            primary: Colors.transparent,
-            onPrimary: Colors.transparent,
-            backgroundColor: Colors.transparent,
           ),
           onPressed: () async {
             final fullName = fullNameController.text;
@@ -274,7 +277,7 @@ class _SignUpPageState extends State<SignUpPage> {
             final phoneNumber = phoneNumberController.text;
             final email = emailController.text;
             final password = passwordController.text;
-            final registrationType = dropdownController.text;
+            final registration_type = dropdownController.text;
             final region = regionDropdownController.text;
 
             final success = await signUpService.signUp(
@@ -284,7 +287,7 @@ class _SignUpPageState extends State<SignUpPage> {
               email,
               password,
               region,
-              registrationType,
+              registration_type,
             );
 
             if (success) {
@@ -376,10 +379,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 height: 20,
               ),
             ),
-           Padding(
-              
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 25, vertical: 80),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 80),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -399,20 +400,18 @@ class _SignUpPageState extends State<SignUpPage> {
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins'),
                     ),
-                    SizedBox(
-                        height:
-                            MediaQuery.of(context).size.height * 0.05),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                     buildFullName(),
                     SizedBox(height: 10),
                     buildCIN(),
                     SizedBox(height: 10),
                     buildPhoneNumber(),
                     SizedBox(height: 10),
-                    BuildSelectedType(
-                        dropdownController: dropdownController),
+                    BuildSelectedType(dropdownController: dropdownController),
                     SizedBox(height: 10),
                     BuildSelectedRegion(
-                        regionDropdownController: regionDropdownController,),
+                      regionDropdownController: regionDropdownController,
+                    ),
                     SizedBox(height: 10),
                     buildEmail(),
                     const SizedBox(height: 10),

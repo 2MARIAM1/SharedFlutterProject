@@ -16,7 +16,10 @@ class ServiceType {
 }
 
 class ServiceTypeSelector extends StatefulWidget {
-  const ServiceTypeSelector({Key? key}) : super(key: key);
+
+  final TextEditingController serviceTypeController;
+  const ServiceTypeSelector({Key? key, required this.serviceTypeController}) : super(key: key);
+
 
   @override
   State<ServiceTypeSelector> createState() => _ServiceTypeSelectorState();
@@ -37,11 +40,11 @@ class _ServiceTypeSelectorState extends State<ServiceTypeSelector> {
 
   final _multiSelectKey = GlobalKey<FormFieldState>();
 
-  @override
-  void initState() {
-    _selectedServiceTypes = _serviceTypes.toList();
-    super.initState();
-  }
+ // @override
+ // void initState() {
+  //  _selectedServiceTypes = _serviceTypes.toList();
+  //  super.initState();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +56,11 @@ class _ServiceTypeSelectorState extends State<ServiceTypeSelector> {
         style: TextStyle(fontFamily: 'Poppins', fontSize: 14),
       ),
       selectedColor: ColorConstant.indigoA100,
+      dialogHeight: 200,
       separateSelectedItems: true,
-      selectedItemsTextStyle: TextStyle(color: Colors.indigo[700]),
+      itemsTextStyle: TextStyle(fontFamily: 'Poppins', fontSize: 14),
+      selectedItemsTextStyle: TextStyle(
+          color: ColorConstant.indigoA100, fontFamily: 'Poppins', fontSize: 14),
       backgroundColor: ColorConstant.gray50,
       decoration: BoxDecoration(
         color: ColorConstant.gray50,
@@ -72,12 +78,15 @@ class _ServiceTypeSelectorState extends State<ServiceTypeSelector> {
         "Select service",
         style: TextStyle(
           color: ColorConstant.indigoA100,
-          fontSize: 16,
+          fontSize: 14,
           fontFamily: 'Poppins',
         ),
       ),
       onConfirm: (results) {
         _selectedServiceTypes = results;
+        widget.serviceTypeController.text = _selectedServiceTypes
+            .map((serviceType) => serviceType.name)
+            .join(", ");
       },
     );
   }
