@@ -9,7 +9,7 @@ import 'package:test_project/pages/loginpage.dart';
 import '../Components/SignUpComponents/choose_type.dart';
 import '../services/SignUpService.dart';
 
-import 'home_page.dart';
+import 'home_page_customer.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});

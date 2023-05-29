@@ -128,7 +128,7 @@ class _AddInfosCleanerPageState extends State<AddInfosCleanerPage> {
     if (success) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CleanerHomePage()),
+        MaterialPageRoute(builder: (context) => CleanerHomePage(currentUser: widget.currentUser,)),
       );
     }
     else{

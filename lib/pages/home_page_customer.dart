@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,15 +5,22 @@ import 'package:test_project/Components/offer_posts.dart';
 
 import '../Components/custom_menu.dart';
 import '../Components/search_bar.dart';
+import '../models/user.dart';
 import '../utils/color_constant.dart';
 import '../utils/image_constant.dart';
 
-class HomePage extends StatefulWidget {
+class HomePageCustomer extends StatefulWidget {
+  final User currentUser;
+  const HomePageCustomer({Key? key, required this.currentUser}) : super(key: key);
+  User get user => currentUser;
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePageCustomer> createState() => _HomePageCustomerState();
+
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageCustomerState extends State<HomePageCustomer> {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                       ),),
                       Padding(
                         padding: const EdgeInsets.only(left: 50, top: 5),
-                        child: Text("Sofia",
+                        child: Text(widget.currentUser.fullName!,
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 24,
@@ -52,42 +58,56 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        right: MediaQuery.of(context).size.height * 0.02,
-                        top: 75),
-                    child: Container(
-                      margin: const EdgeInsets.all(6),
-                      width: 28,
-                      height: 28,
-                      decoration: BoxDecoration(
-                        color: ColorConstant
-                            .gray200, // Replace with your desired background color
-                        borderRadius: BorderRadius.circular(
-                            10.0), // Adjust the radius as needed
+                      right: MediaQuery.of(context).size.height * 0.02,
+                      top: 75,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Notifications'),
+                              content: Container(
+                                width: 200.0,
+                                height: 200.0,
+
+                              ),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Close'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(6),
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: ColorConstant.gray200, // Replace with your desired background color
+                          borderRadius: BorderRadius.circular(10.0), // Adjust the radius as needed
+                        ),
+                        child: SvgPicture.asset(ImageConstant.imgNotif),
                       ),
-                      child:  SvgPicture.asset(ImageConstant.imgNotif),
-                   //   Icon(
-                    //    Icons
-                    //        .notifications_none_outlined, // Replace with your desired icon
-                    //    color: ColorConstant
-                    //        .black900, // Replace with your desired icon color
-                    //    size: 24.0, // Replace with your desired icon size
-                    //  ),
                     ),
                   )
                 ]),
             const SizedBox(
-              height: 20,
+              height: 50,
             ),
-            buildSearchBar(),
+           // buildSearchBar(),
 
-            const SizedBox(
-              height: 20,
-            ),
           Padding(
             padding: const EdgeInsets.only(left: 20),
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: Text('Popular \nin your region',style: TextStyle(
+              child: Text('My \nrecent posts',style: TextStyle(
 
                 fontFamily: 'Poppins',
                 fontSize: 16,
@@ -97,12 +117,12 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          offerPostsList(context),
+          offerPostsList(currentUser: widget.currentUser),
           ],
         ),
           Align(
             alignment: Alignment.bottomCenter,
-              child: CustomMenuBar()),
+              child: CustomMenuBar(currentUser: widget.currentUser,)),
   ]
 
     ),

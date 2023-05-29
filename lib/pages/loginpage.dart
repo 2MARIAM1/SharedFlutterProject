@@ -7,7 +7,7 @@ import 'package:test_project/pages/cleaner_home_page.dart';
 
 import '../models/user.dart';
 import '../services/auth_service.dart';
-import 'home_page.dart';
+import 'home_page_customer.dart';
 import 'signup_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -154,7 +154,7 @@ Widget buildLoginButton(BuildContext context) {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          CleanerHomePage(),
+                          CleanerHomePage(currentUser: user),
                     ),
                   );
               }
@@ -171,7 +171,7 @@ Widget buildLoginButton(BuildContext context) {
               } else if (user.registration_type == 'Customer') {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => HomePageCustomer(currentUser: user,)),
                 );
               }
             } else {

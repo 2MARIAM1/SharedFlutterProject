@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AddInfosCleanerService {
-  final String baseUrl = 'http://192.168.11.103:8083/user';
+  final String baseUrl = 'http://10.10.10.211:8083/user';
 
   Future<bool> addInfos(
       int id,
