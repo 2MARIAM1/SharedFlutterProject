@@ -5,7 +5,7 @@ import 'package:test_project/models/poste.dart';
 import '../models/user.dart';
 
 class GetAllPostsByUserService {
-  final String baseUrl = 'http://10.10.10.211:8083/poste';
+  final String baseUrl = 'http://localhost:8083/poste';
 
   Future<List<Poste>> getAllPosts(User currentUser) async {
     final Uri url = Uri.parse('$baseUrl/all');
@@ -22,7 +22,8 @@ class GetAllPostsByUserService {
 
       return posts;
     } else {
-      throw Exception('Failed to fetch posts for user. Status Code: ${response.statusCode}');
+      throw Exception(
+          'Failed to fetch posts for user. Status Code: ${response.statusCode}');
     }
   }
 }

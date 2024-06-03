@@ -2,24 +2,24 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class AddInfosCleanerService {
-  final String baseUrl = 'http://10.10.10.211:8083/user';
+  final String baseUrl = 'http://localhost:8083/user';
 
   Future<bool> addInfos(
-      int id,
-      String fullName,
-      String cin,
-      String phoneNumber,
-      String email,
-      String password,
-      String region,
-      String registration_type,
-      String experience,
-      int availability,
-      List<String> workdays,
-      List<String> cleaning_types,
-      bool equipment,
-      String description,
-      ) async {
+    int id,
+    String fullName,
+    String cin,
+    String phoneNumber,
+    String email,
+    String password,
+    String region,
+    String registration_type,
+    String experience,
+    int availability,
+    List<String> workdays,
+    List<String> cleaning_types,
+    bool equipment,
+    String description,
+  ) async {
     try {
       final Map<String, dynamic> requestData = {
         'id': id,

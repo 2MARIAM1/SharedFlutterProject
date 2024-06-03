@@ -2,18 +2,17 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class SignUpService {
-  final String baseUrl = 'http://10.10.10.211:8083/user';
+  final String baseUrl = 'http://localhost:8083/user';
 
   Future<bool> signUp(
     String fullName,
     String cin,
     String phoneNumber,
     String email,
-    String password, String region,
+    String password,
+    String region,
     String registration_type,
   ) async {
-
-
     final Map<String, dynamic> requestData = {
       'fullName': fullName,
       'cin': cin,
@@ -33,7 +32,6 @@ class SignUpService {
     );
 
     return response.statusCode == 201;
-
   }
 }
 /*

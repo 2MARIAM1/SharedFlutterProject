@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../models/user.dart';
 
 class AuthService {
-  final String _baseUrl = "http://10.10.10.211:8083/user";
+  final String _baseUrl = "http://localhost:8083/user";
 
   Future<User?> authenticate(String email, String password) async {
     try {
@@ -16,21 +16,20 @@ class AuthService {
         final List<dynamic> users = jsonDecode(response.body);
 
         final user = users.firstWhere(
-              (u) => u['email'] == email && u['password'] == password,
+          (u) => u['email'] == email && u['password'] == password,
           orElse: () => null,
         );
 
         if (user != null) {
-          return  User.fromJson(user);
+          return User.fromJson(user);
         }
       }
-    }on SocketException{
+    } on SocketException {
       print("CHECK CONNECTION !!!");
-    }on FormatException{
+    } on FormatException {
       print("ERROR RETREIVING DATA !!");
-    }
-    catch(exp){
-        print("SERVICE ERROR");
+    } catch (exp) {
+      print("SERVICE ERROR");
     }
 
     // authentication failed
